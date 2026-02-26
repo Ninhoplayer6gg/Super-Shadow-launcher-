@@ -478,7 +478,7 @@ Log.i("ShadowLauncher", "Shadow Performance Engine Enabled");
 
 
 
-// ===============================================  javaArgList.add("-cp");
+javaArgList.add("-cp");
         if (launchClassPath.contains("bta-client-")){ // BTADownloadTask.BASE_JSON sets this. Jank.
             // BTA for some reason needs this to be last or else it uses the wrong lwjgl
             javaArgList.add(launchClassPath + ":" + getLWJGL3ClassPath());
