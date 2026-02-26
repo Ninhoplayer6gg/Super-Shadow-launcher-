@@ -1695,8 +1695,8 @@ javaArgList.add("-cp");
     }
 
     public static <T> T getWeakReference(WeakReference<T> weakReference) {
-        if(weakReference == null) return null;
-        return weakReference.get();
+    if (weakReference == null) return null;
+    return weakReference.get();
     }
 
     /** Return the renderers that are compatible with this device */
