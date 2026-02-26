@@ -473,10 +473,10 @@ javaArgList.add("-XX:G1ReservePercent=20");
 javaArgList.add("-XX:InitiatingHeapOccupancyPercent=15");
 javaArgList.add("-XX:+ParallelRefProcEnabled");
 
-int safeRam = Math.min(LauncherPreferences.PREF_RAM_ALLOCATION, 1152);
-javaArgList.add("-Xmx" + safeRam + "M");
+Log.i("ShadowLauncher", "Shadow Performance Engine Enabled");
 
-Log.i("ShadowLauncher", "Shadow Performance Engine Enabled | RAM=" + safeRam + "MB");
+
+
 
 // ===============================================  javaArgList.add("-cp");
         if (launchClassPath.contains("bta-client-")){ // BTADownloadTask.BASE_JSON sets this. Jank.
