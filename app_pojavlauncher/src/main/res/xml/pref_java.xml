@@ -40,7 +40,13 @@
             android:key="java_sandbox"
             android:summary="@string/mcl_setting_java_sandbox_subtitle"
             android:title="@string/mcl_setting_java_sandbox" />
-
+<ListPreference
+    android:key="performance_mode"
+    android:title="Performance Mode"
+    android:summary="Choose how Java should behave"
+    android:defaultValue="BALANCED"
+    android:entries="@array/performance_mode_entries"
+    android:entryValues="@array/performance_mode_values" />
     </PreferenceCategory>
 
 
