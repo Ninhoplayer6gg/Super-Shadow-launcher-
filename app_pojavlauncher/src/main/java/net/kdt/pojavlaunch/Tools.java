@@ -656,9 +656,11 @@ javaArgList.add("-cp");
                 } else if (LauncherPreferences.PREF_GAMEPAD_SDL_PASSTHRU && loggedLine.contains("Added SDL Controller Mappings")) {
                     Log.i(TAG, "Fixed version of Legacy4J detected! Have fun!");
                     Logger.removeLogListener(oldL4JMitigationLogListener);
-                }
+    }
+        Logger.addLogListener(oldL4JMitigationLogListener);
+            } 
             
-            Logger.addLogListener(oldL4JMitigationLogListener);
+            
         
         
 
