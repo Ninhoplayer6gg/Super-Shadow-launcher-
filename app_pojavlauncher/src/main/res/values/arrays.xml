@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="performance_mode_entries">
+        <item>Performance</item>
+        <item>Balanced</item>
+        <item>Battery Saver</item>
+    </string-array>
+
+    <string-array name="performance_mode_values">
+        <item>PERFORMANCE</item>
+        <item>BALANCED</item>
+        <item>BATTERY</item>
+    </string-array>
+
+</resources>
