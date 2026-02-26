@@ -457,7 +457,28 @@ public final class Tools {
         }
 
         javaArgList.addAll(Arrays.asList(getMinecraftJVMArgs(versionId, gamedir)));
-        javaArgList.add("-cp");
+      // ===== Shadow Launcher Performance Engine =====
+
+if (!javaArgList.contains("-XX:+UseG1GC")) {
+    javaArgList.add("-XX:+UseG1GC");
+}
+
+javaArgList.add("-XX:+UnlockExperimentalVMOptions");
+javaArgList.add("-XX:+UseStringDeduplication");
+javaArgList.add("-XX:MaxGCPauseMillis=50");
+javaArgList.add("-XX:G1HeapRegionSize=8M");
+javaArgList.add("-XX:G1NewSizePercent=30");
+javaArgList.add("-XX:G1MaxNewSizePercent=40");
+javaArgList.add("-XX:G1ReservePercent=20");
+javaArgList.add("-XX:InitiatingHeapOccupancyPercent=15");
+javaArgList.add("-XX:+ParallelRefProcEnabled");
+
+int safeRam = Math.min(LauncherPreferences.PREF_RAM_ALLOCATION, 1152);
+javaArgList.add("-Xmx" + safeRam + "M");
+
+Log.i("ShadowLauncher", "Shadow Performance Engine Enabled | RAM=" + safeRam + "MB");
+
+// ===============================================  javaArgList.add("-cp");
         if (launchClassPath.contains("bta-client-")){ // BTADownloadTask.BASE_JSON sets this. Jank.
             // BTA for some reason needs this to be last or else it uses the wrong lwjgl
             javaArgList.add(launchClassPath + ":" + getLWJGL3ClassPath());
