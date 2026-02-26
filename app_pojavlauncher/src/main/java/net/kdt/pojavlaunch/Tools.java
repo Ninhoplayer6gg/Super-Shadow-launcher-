@@ -478,8 +478,28 @@ javaArgList.add("-XX:+ParallelRefProcEnabled");
 javaArgList.add("-XX:+DisableExplicitGC");
 javaArgList.add("-XX:+AlwaysPreTouch");
 javaArgList.add("-XX:+PerfDisableSharedMem");
-  javaArgList.add("-Xms512M");
-javaArgList.add("-Xmx1024M");      
+  ActivityManager activityManager =
+        (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
+
+ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+activityManager.getMemoryInfo(memoryInfo);
+
+long totalRam = memoryInfo.totalMem / (1024 * 1024); // MB
+
+int xmx;
+
+if (totalRam <= 2048) {
+    xmx = 768;
+} else if (totalRam <= 4096) {
+    xmx = 1024;
+} else if (totalRam <= 6144) {
+    xmx = 1280;
+} else {
+    xmx = 1536;
+}
+
+javaArgList.add("-Xms512M");
+javaArgList.add("-Xmx" + xmx + "M");      
     
 
 
