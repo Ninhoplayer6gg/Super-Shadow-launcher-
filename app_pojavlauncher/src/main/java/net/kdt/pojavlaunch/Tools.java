@@ -661,7 +661,7 @@ javaArgList.add("-cp");
 
         Logger.addLogListener(oldL4JMitigationLogListener);
     }  // fecha if (hasLegacy4J)
-        }
+        
             
             
         
