@@ -462,11 +462,25 @@ public final class Tools {
 // ===== Shadow Hybrid Engine (Stable + Anti-Spike) =====
 SharedPreferences prefs = activity.getSharedPreferences("launcher_prefs", Context.MODE_PRIVATE);
 String performanceMode = prefs.getString("performance_mode", "BALANCED");
+ActivityManager activityManager =
+    (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
 
+ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+activityManager.getMemoryInfo(memoryInfo);
+
+long totalRam = memoryInfo.totalMem / (1024 * 1024); // MB
 int ramAllocation;
 if (performanceMode.equals("ULTRA")) {
 
-    ramAllocation = 2048;
+    if (totalRam >= 6000) {
+        ramAllocation = 3072;
+    }
+    else if (totalRam >= 4000) {
+        ramAllocation = 1536;
+    }
+    else {
+        ramAllocation = 1024;
+    }
 
     javaArgList.add("-XX:MaxGCPauseMillis=20");
     javaArgList.add("-XX:G1ReservePercent=10");
@@ -474,7 +488,7 @@ if (performanceMode.equals("ULTRA")) {
     javaArgList.add("-XX:+AlwaysPreTouch");
     javaArgList.add("-XX:+UnlockExperimentalVMOptions");
     javaArgList.add("-XX:+UseStringDeduplication");
-
+}
 }
 else if (performanceMode.equals("PERFORMANCE")) {
 
@@ -505,13 +519,7 @@ else { // BALANCED
 
 }
 
-  ActivityManager activityManager =
-        (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
 
-ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-activityManager.getMemoryInfo(memoryInfo);
-
-long totalRam = memoryInfo.totalMem / (1024 * 1024); // MB
 
 int xmx = ramAllocation;
 
