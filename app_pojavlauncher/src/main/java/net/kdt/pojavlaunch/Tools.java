@@ -660,7 +660,7 @@ javaArgList.add("-cp");
             };
             Logger.addLogListener(oldL4JMitigationLogListener);
         }
-    }
+        
 
     public static File getGameDirPath(@NonNull MinecraftProfile minecraftProfile){
         if(minecraftProfile.gameDir != null){
