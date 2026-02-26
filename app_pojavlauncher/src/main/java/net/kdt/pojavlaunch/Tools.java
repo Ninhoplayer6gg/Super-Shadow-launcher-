@@ -462,30 +462,49 @@ public final class Tools {
 // ===== Shadow Hybrid Engine (Stable + Anti-Spike) =====
 SharedPreferences prefs = activity.getSharedPreferences("launcher_prefs", Context.MODE_PRIVATE);
 String performanceMode = prefs.getString("performance_mode", "BALANCED");
-if (!javaArgList.contains("-XX:+UseG1GC")) {
-    javaArgList.add("-XX:+UseG1GC");
-}
 
-if (performanceMode.equals("PERFORMANCE")) {
+int ramAllocation;
+if (performanceMode.equals("ULTRA")) {
+
+    ramAllocation = 2048;
+
+    javaArgList.add("-XX:MaxGCPauseMillis=20");
+    javaArgList.add("-XX:G1ReservePercent=10");
+    javaArgList.add("-XX:InitiatingHeapOccupancyPercent=10");
+    javaArgList.add("-XX:+AlwaysPreTouch");
+    javaArgList.add("-XX:+UnlockExperimentalVMOptions");
+    javaArgList.add("-XX:+UseStringDeduplication");
+
+}
+else if (performanceMode.equals("PERFORMANCE")) {
+
+    ramAllocation = 1536;
 
     javaArgList.add("-XX:MaxGCPauseMillis=35");
     javaArgList.add("-XX:G1ReservePercent=15");
     javaArgList.add("-XX:InitiatingHeapOccupancyPercent=15");
     javaArgList.add("-XX:+AlwaysPreTouch");
 
-} else if (performanceMode.equals("BATTERY")) {
+}
+else if (performanceMode.equals("BATTERY")) {
+
+    ramAllocation = 768;
 
     javaArgList.add("-XX:MaxGCPauseMillis=80");
     javaArgList.add("-XX:G1ReservePercent=25");
     javaArgList.add("-XX:InitiatingHeapOccupancyPercent=30");
 
-} else { // BALANCED
+}
+else { // BALANCED
+
+    ramAllocation = 1024;
 
     javaArgList.add("-XX:MaxGCPauseMillis=45");
     javaArgList.add("-XX:G1ReservePercent=18");
     javaArgList.add("-XX:InitiatingHeapOccupancyPercent=20");
 
 }
+
   ActivityManager activityManager =
         (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
 
@@ -494,17 +513,7 @@ activityManager.getMemoryInfo(memoryInfo);
 
 long totalRam = memoryInfo.totalMem / (1024 * 1024); // MB
 
-int xmx;
-
-if (totalRam <= 2048) {
-    xmx = 768;
-} else if (totalRam <= 4096) {
-    xmx = 1024;
-} else if (totalRam <= 6144) {
-    xmx = 1280;
-} else {
-    xmx = 1536;
-}
+int xmx = ramAllocation;
 
 javaArgList.add("-Xms512M");
 javaArgList.add("-Xmx" + xmx + "M");      
