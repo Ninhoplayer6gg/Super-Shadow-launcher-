@@ -459,25 +459,32 @@ public final class Tools {
         javaArgList.addAll(Arrays.asList(getMinecraftJVMArgs(versionId, gamedir)));
       // ===== Shadow Launcher Performance Engine =====
 // ===== Shadow Hybrid Engine (Stable + Anti-Spike) =====
-
+SharedPreferences prefs = activity.getSharedPreferences("launcher_prefs", Context.MODE_PRIVATE);
+String performanceMode = prefs.getString("performance_mode", "BALANCED");
 if (!javaArgList.contains("-XX:+UseG1GC")) {
     javaArgList.add("-XX:+UseG1GC");
 }
 
-javaArgList.add("-XX:+UnlockExperimentalVMOptions");
-javaArgList.add("-XX:+UseStringDeduplication");
+if (performanceMode.equals("PERFORMANCE")) {
 
-javaArgList.add("-XX:MaxGCPauseMillis=45");
-javaArgList.add("-XX:G1HeapRegionSize=8M");
-javaArgList.add("-XX:G1NewSizePercent=30");
-javaArgList.add("-XX:G1MaxNewSizePercent=40");
-javaArgList.add("-XX:G1ReservePercent=18");
-javaArgList.add("-XX:InitiatingHeapOccupancyPercent=20");
+    javaArgList.add("-XX:MaxGCPauseMillis=35");
+    javaArgList.add("-XX:G1ReservePercent=15");
+    javaArgList.add("-XX:InitiatingHeapOccupancyPercent=15");
+    javaArgList.add("-XX:+AlwaysPreTouch");
 
-javaArgList.add("-XX:+ParallelRefProcEnabled");
-javaArgList.add("-XX:+DisableExplicitGC");
-javaArgList.add("-XX:+AlwaysPreTouch");
-javaArgList.add("-XX:+PerfDisableSharedMem");
+} else if (performanceMode.equals("BATTERY")) {
+
+    javaArgList.add("-XX:MaxGCPauseMillis=80");
+    javaArgList.add("-XX:G1ReservePercent=25");
+    javaArgList.add("-XX:InitiatingHeapOccupancyPercent=30");
+
+} else { // BALANCED
+
+    javaArgList.add("-XX:MaxGCPauseMillis=45");
+    javaArgList.add("-XX:G1ReservePercent=18");
+    javaArgList.add("-XX:InitiatingHeapOccupancyPercent=20");
+
+}
   ActivityManager activityManager =
         (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
 
