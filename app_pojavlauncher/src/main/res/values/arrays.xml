@@ -2,12 +2,14 @@
 <resources>
 
     <string-array name="performance_mode_entries">
+        <item>Ultra</item>
         <item>Performance</item>
         <item>Balanced</item>
         <item>Battery Saver</item>
     </string-array>
 
     <string-array name="performance_mode_values">
+        <item>ULTRA</item>
         <item>PERFORMANCE</item>
         <item>BALANCED</item>
         <item>BATTERY</item>
