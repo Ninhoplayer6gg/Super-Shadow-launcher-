@@ -460,7 +460,7 @@ public final class Tools {
       // ===== Shadow Launcher Performance Engine =====
 
 if (!javaArgList.contains("-XX:+UseG1GC")) {
-    JavaArgList.add("-XX:+UseG1GC");
+    javaArgList.add("-XX:+UseG1GC");
 }
 
 javaArgList.add("-XX:+UnlockExperimentalVMOptions");
