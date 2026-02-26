@@ -458,6 +458,7 @@ public final class Tools {
 
         javaArgList.addAll(Arrays.asList(getMinecraftJVMArgs(versionId, gamedir)));
       // ===== Shadow Launcher Performance Engine =====
+// ===== Shadow Hybrid Engine (Stable + Anti-Spike) =====
 
 if (!javaArgList.contains("-XX:+UseG1GC")) {
     javaArgList.add("-XX:+UseG1GC");
@@ -465,13 +466,23 @@ if (!javaArgList.contains("-XX:+UseG1GC")) {
 
 javaArgList.add("-XX:+UnlockExperimentalVMOptions");
 javaArgList.add("-XX:+UseStringDeduplication");
-javaArgList.add("-XX:MaxGCPauseMillis=50");
+
+javaArgList.add("-XX:MaxGCPauseMillis=45");
 javaArgList.add("-XX:G1HeapRegionSize=8M");
 javaArgList.add("-XX:G1NewSizePercent=30");
 javaArgList.add("-XX:G1MaxNewSizePercent=40");
-javaArgList.add("-XX:G1ReservePercent=20");
-javaArgList.add("-XX:InitiatingHeapOccupancyPercent=15");
+javaArgList.add("-XX:G1ReservePercent=18");
+javaArgList.add("-XX:InitiatingHeapOccupancyPercent=20");
+
 javaArgList.add("-XX:+ParallelRefProcEnabled");
+javaArgList.add("-XX:+DisableExplicitGC");
+javaArgList.add("-XX:+AlwaysPreTouch");
+javaArgList.add("-XX:+PerfDisableSharedMem");
+        
+    
+
+
+
 
 Log.i("ShadowLauncher", "Shadow Performance Engine Enabled");
 
