@@ -478,7 +478,8 @@ javaArgList.add("-XX:+ParallelRefProcEnabled");
 javaArgList.add("-XX:+DisableExplicitGC");
 javaArgList.add("-XX:+AlwaysPreTouch");
 javaArgList.add("-XX:+PerfDisableSharedMem");
-        
+  javaArgList.add("-Xms512M");
+javaArgList.add("-Xmx1024M");      
     
 
 
