@@ -429,7 +429,7 @@ public final class Tools {
 
 
         // Pre-process specific files
-        disableSplash(gamedir);
+        
         String[] launchArgs = getMinecraftClientArgs(minecraftAccount, versionInfo, gamedir);
 
         // Select the appropriate openGL version
